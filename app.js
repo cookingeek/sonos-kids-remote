@@ -51,7 +51,6 @@ DeviceDiscovery((device) => {
       device.getVolume().then((test) =>{console.log(test);});
       device.setVolume(50).then((test) =>{
         //device.play("spotify:album:2ecEZ0qYMnrR8W2K4ZtxFv")
-       
       });
       defaultDevice = device;
       //device.play();
