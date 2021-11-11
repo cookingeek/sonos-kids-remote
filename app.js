@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var RFID = require('./app/services/RFID.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -39,6 +40,9 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+var rfid = new RFID();
+
 let { DeviceDiscovery } = require('sonos');
 const Regions = require('sonos').SpotifyRegion
 
@@ -60,7 +64,3 @@ DeviceDiscovery((device) => {
 
 
 });
-
-
-
-
