@@ -3,7 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const { networkInterfaces } = require('os');
+
 var RFID = require('./app/services/RFID.js');
+var Sonos = require('./app/services/Sonos.js');
+var Remote = require('./app/services/Remote.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -40,27 +44,23 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+const nets = networkInterfaces();
+const results = {}; // Or just '{}', an empty object
 
-var rfid = new RFID();
-
-let { DeviceDiscovery } = require('sonos');
-const Regions = require('sonos').SpotifyRegion
-
-var defaultDevice = null;
-
-DeviceDiscovery((device) => {
-  device.deviceDescription().then((model) => {
-    if (model.roomName == "Move") {
-      device.setSpotifyRegion(Regions.EU);
-      device.getVolume().then((test) =>{console.log(test);});
-      device.setVolume(50).then((test) =>{
-        //device.play("spotify:album:2ecEZ0qYMnrR8W2K4ZtxFv")
-      });
-      defaultDevice = device;
-      //device.play();
-      //device.stop();
+for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+        if (net.family === 'IPv4' && !net.internal) {
+            if (!results[name]) {
+                results[name] = [];
+            }
+            results[name].push(net.address);
+        }
     }
-  });
+}
+console.log(results);
+const myIp = results.wlan0[0];
+var sonos = new Sonos(myIp);
+var rfid = new RFID(sonos);
+var remote = new Remote();
 
-
-});

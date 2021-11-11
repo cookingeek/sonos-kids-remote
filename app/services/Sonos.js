@@ -1,10 +1,48 @@
+let { DeviceDiscovery } = require('sonos');
+const Regions = require('sonos').SpotifyRegion
+var defaultDevice = null;
+
 class Sonos {
+  constructor(myIp) {
+    console.log("Init Sonos");
+    if (myIp != null && myIp != undefined) {
+      this.myIp = myIp;
+      console.log("IP: " + myIp);
+    }
+    DeviceDiscovery((device) => {
+      device.deviceDescription().then((model) => {
+        if (model.roomName == "Move") {
+          device.setSpotifyRegion(Regions.EU);
+          defaultDevice = device;
+          console.log("Set default device: " + model.roomName);
+        }
+      });
+    });
+  }
 
-    constructor() {
+  play(cardId) {
+    defaultDevice.play("http://" + this.myIp + ":3000/localmusic/<.mp3>");
+  }
 
-      }
+  stop() {
 
+  }
 
+  volumeUp() {
+
+  }
+
+  volumeDown() {
+
+  }
+
+  setSonos() {
+
+  }
+
+  createGroup() {
+
+  }
 };
 
 module.exports = Sonos;
