@@ -7,13 +7,12 @@ class Sonos {
     console.log("Init Sonos");
     if (myIp != null && myIp != undefined) {
       this.myIp = myIp;
-      console.log("IP: " + myIp);
     }
 
     //discover default device
     DeviceDiscovery((device) => {
       device.deviceDescription().then((model) => {
-        if (model.roomName == "Move") {
+        if (model.roomName == properties.get('sonos.base')) {
           device.setSpotifyRegion(Regions.EU);
           defaultDevice = device;
           console.log("Set default device: " + model.roomName);
@@ -23,7 +22,7 @@ class Sonos {
   }
 
   play(cardId) {
-    defaultDevice.play("http://" + this.myIp + ":3000/localmusic/andie.mp3");
+    defaultDevice.play("http://" + this.myIp + ":3000/localmusic/dean.mp3");
   }
 
   stop() {
