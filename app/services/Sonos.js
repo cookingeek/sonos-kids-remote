@@ -9,6 +9,8 @@ class Sonos {
       this.myIp = myIp;
       console.log("IP: " + myIp);
     }
+
+    //discover default device
     DeviceDiscovery((device) => {
       device.deviceDescription().then((model) => {
         if (model.roomName == "Move") {
@@ -21,7 +23,7 @@ class Sonos {
   }
 
   play(cardId) {
-    defaultDevice.play("http://" + this.myIp + ":3000/localmusic/<.mp3>");
+    defaultDevice.play("http://" + this.myIp + ":3000/localmusic/andie.mp3");
   }
 
   stop() {

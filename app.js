@@ -48,19 +48,23 @@ const nets = networkInterfaces();
 const results = {}; // Or just '{}', an empty object
 
 for (const name of Object.keys(nets)) {
-    for (const net of nets[name]) {
-        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-        if (net.family === 'IPv4' && !net.internal) {
-            if (!results[name]) {
-                results[name] = [];
-            }
-            results[name].push(net.address);
-        }
+  for (const net of nets[name]) {
+    // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+    if (net.family === 'IPv4' && !net.internal) {
+      if (!results[name]) {
+        results[name] = [];
+      }
+      results[name].push(net.address);
     }
+  }
 }
-console.log(results);
-const myIp = results.wlan0[0];
+var myIp = "";
+//discover the Ip to play local files
+if (results.wlan0 != null && results.wlan0 != undefined) {
+  myIp = results.wlan0[0];
+}
 var sonos = new Sonos(myIp);
-var rfid = new RFID(sonos);
-var remote = new Remote();
+sonos.play("test");
+//var rfid = new RFID(sonos);
+//var remote = new Remote();
 
