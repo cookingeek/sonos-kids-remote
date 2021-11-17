@@ -8,6 +8,7 @@ const { networkInterfaces } = require('os');
 var PropertiesReader = require('properties-reader');
 global.properties = PropertiesReader('./app/config.properties');
 
+
 var RFID = require('./app/services/RFID.js');
 var Sonos = require('./app/services/Sonos.js');
 var Remote = require('./app/services/Remote.js');
@@ -74,4 +75,3 @@ setTimeout(function(){
 sonos.play("test"); }, 3000);
 var rfid = new RFID(sonos);
 var remote = new Remote();
-
