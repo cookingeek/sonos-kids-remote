@@ -57,7 +57,7 @@ class RFID {
                     console.log(cardId);
 
                     //DO Something
-                    //sonos.play(cardId);
+                    sonos.play(cardId);
                 }
                 else {
                     //console.log("Same Card");

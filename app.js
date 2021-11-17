@@ -5,8 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { networkInterfaces } = require('os');
 
-var PropertiesReader = require('properties-reader');
-global.properties = PropertiesReader('./app/config.properties');
+global.properties = require('./app/Config.js');
 
 
 var RFID = require('./app/services/RFID.js');
@@ -63,7 +62,7 @@ for (const name of Object.keys(nets)) {
   }
 }
 var myIp = "";
-var networtInterface = properties.get('webserver.interface');
+var networtInterface = properties.webserver.interface;
 //discover the Ip to play local files
 if (results[networtInterface] != null && results[networtInterface] != undefined) {
   myIp = results[networtInterface][0];
@@ -73,5 +72,5 @@ var sonos = new Sonos(myIp);
 
 setTimeout(function(){ 
 sonos.play("test"); }, 3000);
-var rfid = new RFID(sonos);
-var remote = new Remote();
+//var rfid = new RFID(sonos);
+//var remote = new Remote();
