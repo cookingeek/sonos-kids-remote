@@ -1,6 +1,6 @@
 module.exports = {
     sonos: {
-        base: 'Kinderzimmer',
+        base: 'Move',
         localmusic: {
             port: '3000',
             musicfolder: 'localmusic',

@@ -24,33 +24,32 @@ class Sonos {
   }
 
   play(cardId) {
-    this.db.findById(cardId, (function (error, result) {
-      if (result.length === 1) {
-        this.defaultDevice.flush();
-        var entry = result[0];
-        if (entry.source == 'local' && entry.type == 'file') {
-          this.defaultDevice.play(properties.sonos.localmusic.protocol + "://" + this.myIp +
-            ":" + properties.sonos.localmusic.port +
-            "/" + properties.sonos.localmusic.musicfolder + "/" + entry.name);
-        } else if(entry.source == 'local' && entry.type == 'folder'){
+    var result = this.db.findById(cardId);
+    if (result.length === 1) {
+      this.defaultDevice.flush();
+      var entry = result[0];
+      if (entry.source == 'local' && entry.type == 'file') {
+        this.defaultDevice.play(properties.sonos.localmusic.protocol + "://" + this.myIp +
+          ":" + properties.sonos.localmusic.port +
+          "/" + properties.sonos.localmusic.musicfolder + "/" + entry.name);
+      } else if (entry.source == 'local' && entry.type == 'folder') {
 
-        }else if(entry.source == 'spotify' && entry.type == 'album'){
+      } else if (entry.source == 'spotify' && entry.type == 'album') {
 
-        }else if(entry.source == 'spotify' && entry.type == 'playlist'){
+      } else if (entry.source == 'spotify' && entry.type == 'playlist') {
 
-        }
       }
-    }).bind(this));
+    }
   }
 
   stop() {
     this.defaultDevice.stop();
   }
-  
+
   next() {
     this.defaultDevice.next();
   }
-  previous(){
+  previous() {
     this.defaultDevice.previous();
   }
 

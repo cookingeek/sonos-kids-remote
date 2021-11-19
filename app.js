@@ -76,9 +76,9 @@ var sonos = new Sonos(myIp, db);
 
 
 setTimeout(function () {
-  //sonos.play("d7deb4e");
+  sonos.play("d7deb4e");
   //sonos.stop();
-}, 3000);
+}, 5000);
   //var rfid = new RFID(sonos);
   //var remote = new Remote();
 

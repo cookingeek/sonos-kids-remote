@@ -1,40 +1,43 @@
 /**
  *
  */
- 'use strict'
- const Datastore = require('nedb');
- var db = {};
- db = new Datastore({
-   filename: 'db/' + properties.db.filename,
-   autoload: true
- });
- class Database {
- 
-   constructor() {
-     db.loadDatabase();
-   }
- 
-   create(data, callback) {
-     db.insert(data, callback);
-   }
- 
-   update(query, update, callback) {
-     db.update(query, {
-       $set: update
-     }, {}, callback)
-   }
- 
-   remove(id, callback) {
-     db.remove({
-       _id: id
-     }, {}, callback);
-   }
- 
-   findById(id, callback) {
-     db.find({
-       _id: id
-     }, callback);
-   }
- }
- 
- module.exports = Database;
+'use strict'
+
+const loki = require('lokijs/src/lokijs.js');
+
+var db = new loki('db/' + properties.db.filename, {
+  autoload: true,
+  autosave: true
+});
+
+class Database {
+  constructor() {
+    this.entries = db.getCollection("entries");
+    if (this.entries === null) {
+      this.entries = db.addCollection("entries");
+      //create dummy line
+      this.entries.insert({ _id: "d7deb4e", source: "local", type: "file", name: "dean.mp3" }
+      );
+    }
+  }
+
+  create(data,) {
+    this.entries.insert(data);
+  }
+
+  update(entry) {
+    this.entries.update(entry);
+  }
+
+  remove(entry) {
+    this.entries.remove(entry);
+  }
+
+  findById(id) {
+    return this.entries.find({
+      _id: id
+    });
+  }
+}
+
+module.exports = Database;
