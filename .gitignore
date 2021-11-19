@@ -20,3 +20,5 @@ package-lock.json
 *.gz
 
 *.mp3
+
+db/database.db

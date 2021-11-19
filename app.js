@@ -11,6 +11,7 @@ global.properties = require('./app/Config.js');
 var RFID = require('./app/services/RFID.js');
 var Sonos = require('./app/services/Sonos.js');
 var Remote = require('./app/services/Remote.js');
+var DB = require('./app/models/Database.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -61,6 +62,7 @@ for (const name of Object.keys(nets)) {
     }
   }
 }
+console.log(results);
 var myIp = "";
 var networtInterface = properties.webserver.interface;
 //discover the Ip to play local files
@@ -68,9 +70,15 @@ if (results[networtInterface] != null && results[networtInterface] != undefined)
   myIp = results[networtInterface][0];
   console.log("Webserver's IP: " + myIp);
 }
-var sonos = new Sonos(myIp);
 
-setTimeout(function(){ 
-sonos.play("test"); }, 3000);
-//var rfid = new RFID(sonos);
-//var remote = new Remote();
+var db = new DB();
+var sonos = new Sonos(myIp, db);
+
+
+setTimeout(function () {
+  //sonos.play("d7deb4e");
+  //sonos.stop();
+}, 3000);
+  //var rfid = new RFID(sonos);
+  //var remote = new Remote();
+
