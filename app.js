@@ -12,7 +12,6 @@ var Remote = require('./app/services/Remote.js');
 var DB = require('./app/models/Database.js');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -64,9 +63,8 @@ const run = async () => {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/', indexRouter);
-  app.use('/users', usersRouter);
 
+  app.use('/', indexRouter);
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));
@@ -86,6 +84,7 @@ const run = async () => {
   app.listen(3000);
 
   var db = new DB();
+
   var sonos = new Sonos(myIp, db);
   await sonos.init();
   sonos.play("d7deb4e");

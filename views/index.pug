@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  ul
+  each card in {cards}
+    li= card[0]._card + card[0].source  + card[0].type + card[0].id 
+

@@ -21,7 +21,7 @@ class Database {
     }
   }
 
-  create(data,) {
+  create(data) {
     this.entries.insert(data);
   }
 
@@ -37,6 +37,10 @@ class Database {
     return this.entries.find({
       _card: id
     });
+  }
+
+  findAll(){
+    return this.entries.find();
   }
 }
 

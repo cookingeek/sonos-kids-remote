@@ -2,7 +2,7 @@ let { AsyncDeviceDiscovery } = require('sonos');
 const Regions = require('sonos').SpotifyRegion
 
 class Sonos {
-  constructor(myIp, db) {
+   constructor(myIp, db) {
     console.log("Init Sonos");
     if (myIp != null && myIp != undefined) {
       this.myIp = myIp;
@@ -10,25 +10,22 @@ class Sonos {
     if (db != null && db != undefined) {
       this.db = db;
     }
-
   }
-
-  async init() {
-    //discover default device
-    var discovery = new AsyncDeviceDiscovery();//(device) => {
+  
+async init(){
+    var discovery = new AsyncDeviceDiscovery();
     var devices = await discovery.discoverMultiple();
     for(var i = 0; i < devices.length; i++){
-      var model = await devices[i].deviceDescription();//.then((model) => {
+      var model = await devices[i].deviceDescription();
       if (model.roomName == properties.sonos.base) {
         devices[i].setSpotifyRegion(Regions.EU);
+        await devices[i].leaveGroup();
         this.defaultDevice = devices[i];
         console.log("Set default device: " + model.roomName);
         break;
       }
     }
-
   }
-
 
   play(cardId) {
     var result = this.db.findById(cardId);
