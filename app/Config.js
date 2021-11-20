@@ -1,4 +1,5 @@
 module.exports = {
+    name: "Jakobs Sonos Controller",
     sonos: {
         base: 'Move',
         localmusic: {

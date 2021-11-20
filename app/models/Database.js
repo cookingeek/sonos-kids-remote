@@ -16,7 +16,7 @@ class Database {
     if (this.entries === null) {
       this.entries = db.addCollection("entries");
       //create dummy line
-      this.entries.insert({ _id: "d7deb4e", source: "local", type: "file", name: "dean.mp3" }
+      this.entries.insert({ _card: "d7deb4e", source: "local", type: "file", id: "dean.mp3" }
       );
     }
   }
@@ -35,7 +35,7 @@ class Database {
 
   findById(id) {
     return this.entries.find({
-      _id: id
+      _card: id
     });
   }
 }
