@@ -87,7 +87,10 @@ const run = async () => {
 
   var sonos = new Sonos(myIp, db);
   await sonos.init();
-  sonos.play("d7deb4e");
+  //sonos.play("d7deb4e");
+  var rfid = new RFID(sonos);
+ //var remote = new Remote();
+
 };
 
 run();
