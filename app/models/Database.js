@@ -4,20 +4,20 @@
 'use strict'
 
 const loki = require('lokijs/src/lokijs.js');
-
-var db = new loki('db/' + properties.db.filename, {
-  autoload: true,
-  autosave: true
-});
-
 class Database {
+
   constructor() {
-    this.entries = db.getCollection("entries");
-    if (this.entries === null) {
-      this.entries = db.addCollection("entries");
-      //create dummy line
-      this.entries.insert({ _card: "d7deb4e", source: "local", type: "file", id: "dean.mp3" }
-      );
+    var that = this;
+    that.db = new loki('db/' + properties.db.filename, {
+      autoload: true,
+      autoloadCallback: loadHandler,
+      autosave: true
+    });
+    function loadHandler() {
+      that.entries = that.db.getCollection("entries")
+      if (that.entries == null) {
+        that.entries = that.db.addCollection("entries");
+      }
     }
   }
 
@@ -39,7 +39,7 @@ class Database {
     });
   }
 
-  findAll(){
+  findAll() {
     return this.entries.find();
   }
 }
