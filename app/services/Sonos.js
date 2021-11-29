@@ -50,7 +50,6 @@ class Sonos {
         const musicFolder = 'public/localmusic/' + entry.id;
         var i = 0;
         fs.readdirSync(musicFolder).forEach(file => {
-          console.log(file);
           if (i == 0) {
             this.defaultDevice.play(properties.sonos.localmusic.protocol + "://" + this.myIp +
               ":" + properties.sonos.localmusic.port +

@@ -10,6 +10,7 @@ var RFID = require('./app/services/RFID.js');
 var Sonos = require('./app/services/Sonos.js');
 var Remote = require('./app/services/Remote.js');
 var DB = require('./app/models/Database.js');
+var Beeper = require('./app/services/Beeper.js');
 
 var indexRouter = require('./routes/index');
 
@@ -46,7 +47,7 @@ const run = async () => {
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
 
-  app.use(logger('dev'));
+  //app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
@@ -76,9 +77,10 @@ const run = async () => {
 
   var sonos = new Sonos(myIp, db);
   await sonos.init();
-  var rfid = new RFID(sonos);
-  //var remote = new Remote();
-
+  var beeper = new Beeper();
+  var rfid = new RFID(sonos, beeper);
+  var remote = new Remote(sonos);
+  beeper.beep();
   //sonos.play("1d5aec4e");
 
 };

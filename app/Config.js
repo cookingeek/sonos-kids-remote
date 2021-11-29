@@ -1,7 +1,7 @@
 module.exports = {
     name: "Jakobs Sonos Controller",
     sonos: {
-        base: 'Kinderzimmer',
+        base: 'Move',
         localmusic: {
             port: '3000',
             musicfolder: 'localmusic',
@@ -14,11 +14,12 @@ module.exports = {
         //interface: 'en0'
     },
     gpio: {
-        next: '',
-        back: '',
-        volumeUp: '',
-        volumeDown: '',
-        led: ''
+        next: '19',
+        previous: '6',
+        volumeUp: '13',
+        volumeDown: '5',
+        led: '',
+        beeper: '17'
     },
     db:{
         filename: 'database.db'

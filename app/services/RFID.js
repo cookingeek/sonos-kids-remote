@@ -13,9 +13,10 @@ var lastCard = "";
 var mfrc522 = null;
 class RFID {
 
-    constructor(sonos) {
+    constructor(sonos,beeper) {
         console.log("Init RFID");
         this.sonos = sonos;
+        this.beeper = beeper;
         if (this.sonos === undefined) {
             throw new Error('Could not set sonos in RFID');
         }
@@ -54,6 +55,7 @@ class RFID {
                     uid[3].toString(16);
                 if (lastCard !== cardId) {
                     lastCard = cardId;
+                    beeper.beep();
                     console.log(cardId);
 
                     //DO Something
