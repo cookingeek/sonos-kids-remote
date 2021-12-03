@@ -13,7 +13,7 @@ class Beeper {
         beeper.writeSync(1);
         setTimeout(function(){
             beeper.writeSync(0);
-        }, 300)
+        }, 100)
     }
 };
 
