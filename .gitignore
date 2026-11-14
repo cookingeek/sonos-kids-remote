@@ -22,3 +22,4 @@ package-lock.json
 *.mp3
 
 db/database.db
+__pycache__/
